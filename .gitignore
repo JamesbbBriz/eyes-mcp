@@ -1,0 +1,18 @@
+# python
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# runtime artifacts
+logs/
+*.log
+
+# never commit model weights
+models/
+*.gguf
+
+# local overrides
+.env
+.DS_Store
