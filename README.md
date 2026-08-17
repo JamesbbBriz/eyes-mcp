@@ -106,8 +106,8 @@ Restart the agent, then ask: *"what's in this screenshot?"*
 | `lfm-450m` *(default)* | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | [Liquid](https://huggingface.co/LiquidAI/LFM2.5-VL-450M-GGUF) | ✅ tested, fastest startup |
 | `fast` | Qwen3.5-0.8B | ~0.7GB | ~1.8GB | Apache-2.0 | natively multimodal (image + video) |
 | `ocr` | GLM-OCR | ~1.4GB | ~3.5GB | MIT | dense text / document champion (3M+ downloads/mo) |
-| `strong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | best small vision model right now |
-| `xstrong` | Qwen3-VL-8B | ~5.5GB | ~10GB | Apache-2.0 | serious understanding (GPU advised) |
+| `strong` | Qwen3.5-2B | ~2GB | ~3.5GB | Apache-2.0 | best quality/size balance |
+| `xstrong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | max tier (GPU advised) |
 
 Hidden extras (still one command): `smol500` (SmolVLM2-500M), `paddle` (PaddleOCR-VL-1.6), `qwen3-2b` (Qwen3-VL-2B).
 

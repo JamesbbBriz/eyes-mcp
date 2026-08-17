@@ -96,8 +96,8 @@ env = { EYES_PRESET = "lfm-450m" }
 | `lfm-450m`（默认） | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | Liquid | ✅ 实测默认档，启动最快 |
 | `fast` | Qwen3.5-0.8B | ~0.7GB | ~1.8GB | Apache-2.0 | 原生多模态（图+视频） |
 | `ocr` | GLM-OCR | ~1.4GB | ~3.5GB | MIT | 密集文字/文档之王（月下载 300万+） |
-| `strong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | 当前最强小视觉模型 |
-| `xstrong` | Qwen3-VL-8B | ~5.5GB | ~10GB | Apache-2.0 | 认真理解复杂图（建议 GPU） |
+| `strong` | Qwen3.5-2B | ~2GB | ~3.5GB | Apache-2.0 | 质量/体积最佳平衡 |
+| `xstrong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | 最高档（建议 GPU） |
 
 隐藏档（同样一条命令）：`smol500`（SmolVLM2-500M）、`paddle`（PaddleOCR-VL-1.6）、`qwen3-2b`（Qwen3-VL-2B）。
 

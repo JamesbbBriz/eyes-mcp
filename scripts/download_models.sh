@@ -22,11 +22,11 @@ case "$PRESET" in
     REPO="ggml-org/GLM-OCR-GGUF"
     FILES=("GLM-OCR-Q8_0.gguf" "mmproj-GLM-OCR-Q8_0.gguf") ;;
   strong)
+    REPO="unsloth/Qwen3.5-2B-GGUF"
+    FILES=("Qwen3.5-2B-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
+  xstrong)
     REPO="unsloth/Qwen3.5-4B-GGUF"
     FILES=("Qwen3.5-4B-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
-  xstrong)
-    REPO="unsloth/Qwen3-VL-8B-Instruct-GGUF"
-    FILES=("Qwen3-VL-8B-Instruct-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
   # ---- extra presets (not in the chooser menu; see README "more models") ----
   smol500)
     REPO="ggml-org/SmolVLM2-500M-Video-Instruct-GGUF"

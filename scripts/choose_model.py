@@ -29,10 +29,10 @@ PRESETS: dict[str, dict] = {
                  "license": "Apache-2.0", "note": "natively multimodal (image+video)"},
     "ocr":      {"model": "GLM-OCR",           "disk": "~1.4GB", "ram_gb": 3.5,
                  "license": "MIT",        "note": "dense text / document champion"},
-    "strong":   {"model": "Qwen3.5-4B",        "disk": "~3GB",   "ram_gb": 6.0,
-                 "license": "Apache-2.0", "note": "best small vision model"},
-    "xstrong":  {"model": "Qwen3-VL-8B",       "disk": "~5.5GB", "ram_gb": 10.0,
-                 "license": "Apache-2.0", "note": "serious understanding (GPU advised)"},
+    "strong":   {"model": "Qwen3.5-2B",        "disk": "~2GB",   "ram_gb": 3.5,
+                 "license": "Apache-2.0", "note": "best quality/size balance"},
+    "xstrong":  {"model": "Qwen3.5-4B",        "disk": "~3GB",   "ram_gb": 6.0,
+                 "license": "Apache-2.0", "note": "max tier (GPU advised)"},
 }
 ORDER = ["nano", "lfm-450m", "fast", "ocr", "strong", "xstrong"]
 
@@ -75,7 +75,7 @@ def recommend(ram: float | None, accel: str) -> str:
     if ram is None:
         return "lfm-450m"
     gpu = accel in ("apple-silicon", "cuda")
-    if gpu and ram >= 32:
+    if gpu and ram >= 24:
         return "xstrong"
     if ram >= 16:
         return "strong"

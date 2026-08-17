@@ -27,14 +27,14 @@ case "$PRESET" in
     MODEL_FILE="${VLM_MODEL_FILE:-GLM-OCR-Q8_0.gguf}"
     MMPROJ_FILE="${VLM_MMPROJ_FILE:-mmproj-GLM-OCR-Q8_0.gguf}"
     CTX="${VLM_CTX:-16384}" ;;
-  strong)    # Qwen3.5-4B: best small vision model, Apache-2.0
+  strong)    # Qwen3.5-2B: best quality/size balance, Apache-2.0
     MODEL_DIR="${EYES_MODEL_DIR:-$HOME/.eyes-mcp/models/strong}"
-    MODEL_FILE="${VLM_MODEL_FILE:-Qwen3.5-4B-Q4_K_M.gguf}"
+    MODEL_FILE="${VLM_MODEL_FILE:-Qwen3.5-2B-Q4_K_M.gguf}"
     MMPROJ_FILE="${VLM_MMPROJ_FILE:-mmproj-F16.gguf}"
-    CTX="${VLM_CTX:-16384}" ;;
-  xstrong)   # Qwen3-VL-8B: serious visual understanding (GPU advised), Apache-2.0
+    CTX="${VLM_CTX:-8192}" ;;
+  xstrong)   # Qwen3.5-4B: max tier (GPU advised), Apache-2.0
     MODEL_DIR="${EYES_MODEL_DIR:-$HOME/.eyes-mcp/models/xstrong}"
-    MODEL_FILE="${VLM_MODEL_FILE:-Qwen3-VL-8B-Instruct-Q4_K_M.gguf}"
+    MODEL_FILE="${VLM_MODEL_FILE:-Qwen3.5-4B-Q4_K_M.gguf}"
     MMPROJ_FILE="${VLM_MMPROJ_FILE:-mmproj-F16.gguf}"
     CTX="${VLM_CTX:-16384}" ;;
   smol500)   # extra preset
