@@ -90,13 +90,24 @@ env = { EYES_PRESET = "lfm-450m" }
 
 ## 模型档位
 
-| 档位 | 模型 | 大小 | 内存 | 许可证 |
-|---|---|---|---|---|
-| `lfm-450m`（默认） | LFM2.5-VL-450M | ~400MB | ~1GB | Liquid 开放许可 |
-| `nano` | SmolVLM2-256M | ~300MB | <1GB | Apache-2.0 |
-| `fast` | SmolVLM2-500M | ~600MB | ~1GB | Apache-2.0 |
-| `ocr` | PaddleOCR-VL 0.9B | ~1GB | ~2GB | Apache-2.0 |
-| `strong` | Qwen3-VL-2B | ~2GB | ~4GB | Apache-2.0 |
+| 档位 | 模型 | 下载 | 内存 | 许可证 | 备注 |
+|---|---|---|---|---|---|
+| `nano` | SmolVLM2-256M | ~0.3GB | ~1GB | Apache-2.0 | 最小可用 |
+| `lfm-450m`（默认） | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | Liquid | ✅ 实测默认档，启动最快 |
+| `fast` | Qwen3.5-0.8B | ~0.7GB | ~1.8GB | Apache-2.0 | 原生多模态（图+视频） |
+| `ocr` | GLM-OCR | ~1.4GB | ~3.5GB | MIT | 密集文字/文档之王（月下载 300万+） |
+| `strong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | 当前最强小视觉模型 |
+| `xstrong` | Qwen3-VL-8B | ~5.5GB | ~10GB | Apache-2.0 | 认真理解复杂图（建议 GPU） |
+
+隐藏档（同样一条命令）：`smol500`（SmolVLM2-500M）、`paddle`（PaddleOCR-VL-1.6）、`qwen3-2b`（Qwen3-VL-2B）。
+
+**任意其他 GGUF 也能用**——env 直接指过去，不走预设：
+
+```bash
+EYES_MODEL_DIR=~/models/my-vlm  VLM_MODEL_FILE=model-Q4.gguf  VLM_MMPROJ_FILE=mmproj.gguf
+```
+
+未做成预设的好选择：LFM2.5-VL-1.6B/3B、InternVL3.5-2B/4B、MiniCPM-V-4.6、DeepSeek-OCR、dots.ocr、gemma-3n-E2B、moondream2——只要 llama.cpp 支持（带 mmproj）就行。
 
 随时换档：设置 `EYES_PRESET` 再跑 `./scripts/download_models.sh`。不知道选哪个？`python3 scripts/choose_model.py` 会显示内存/GPU 并标出推荐。
 

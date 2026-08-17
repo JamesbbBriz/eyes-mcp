@@ -9,23 +9,39 @@ HF_BASE="${HF_ENDPOINT:-https://huggingface.co}"
 MODELS_ROOT="${EYES_MODELS_ROOT:-$HOME/.eyes-mcp/models}"
 
 case "$PRESET" in
-  lfm-450m)
-    REPO="LiquidAI/LFM2.5-VL-450M-GGUF"
-    FILES=("LFM2.5-VL-450M-Q4_K_M.gguf" "mmproj-LFM2.5-VL-450m-F16.gguf") ;;
   nano)
     REPO="ggml-org/SmolVLM2-256M-Video-Instruct-GGUF"
     FILES=("SmolVLM2-256M-Video-Instruct-Q8_0.gguf" "mmproj-SmolVLM2-256M-Video-Instruct-Q8_0.gguf") ;;
+  lfm-450m)
+    REPO="LiquidAI/LFM2.5-VL-450M-GGUF"
+    FILES=("LFM2.5-VL-450M-Q4_K_M.gguf" "mmproj-LFM2.5-VL-450m-F16.gguf") ;;
   fast)
+    REPO="unsloth/Qwen3.5-0.8B-GGUF"
+    FILES=("Qwen3.5-0.8B-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
+  ocr)
+    REPO="ggml-org/GLM-OCR-GGUF"
+    FILES=("GLM-OCR-Q8_0.gguf" "mmproj-GLM-OCR-Q8_0.gguf") ;;
+  strong)
+    REPO="unsloth/Qwen3.5-4B-GGUF"
+    FILES=("Qwen3.5-4B-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
+  xstrong)
+    REPO="unsloth/Qwen3-VL-8B-Instruct-GGUF"
+    FILES=("Qwen3-VL-8B-Instruct-Q4_K_M.gguf" "mmproj-F16.gguf") ;;
+  # ---- extra presets (not in the chooser menu; see README "more models") ----
+  smol500)
     REPO="ggml-org/SmolVLM2-500M-Video-Instruct-GGUF"
     FILES=("SmolVLM2-500M-Video-Instruct-Q8_0.gguf" "mmproj-SmolVLM2-500M-Video-Instruct-Q8_0.gguf") ;;
-  ocr)
+  paddle)
     REPO="PaddlePaddle/PaddleOCR-VL-1.6-GGUF"
     FILES=("PaddleOCR-VL-1.6-GGUF.gguf" "PaddleOCR-VL-1.6-GGUF-mmproj.gguf") ;;
-  strong)
+  qwen3-2b)
     REPO="Qwen/Qwen3-VL-2B-Instruct-GGUF"
     FILES=("Qwen3VL-2B-Instruct-Q4_K_M.gguf" "mmproj-Qwen3VL-2B-Instruct-F16.gguf") ;;
   *)
-    echo "unknown preset '$PRESET' (lfm-450m|nano|fast|ocr|strong)" >&2; exit 2 ;;
+    echo "unknown preset '$PRESET'" >&2
+    echo "menu presets : nano lfm-450m fast ocr strong xstrong" >&2
+    echo "extra presets: smol500 paddle qwen3-2b" >&2
+    exit 2 ;;
 esac
 
 DEST="$MODELS_ROOT/$PRESET"

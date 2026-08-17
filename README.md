@@ -100,13 +100,24 @@ Restart the agent, then ask: *"what's in this screenshot?"*
 
 ## Model presets
 
-| Preset | Model | Size | RAM | License | Notes |
+| Preset | Model | Download | RAM | License | Notes |
 |---|---|---|---|---|---|
-| `lfm-450m` *(default)* | LFM2.5-VL-450M | ~400MB | ~1GB | [Liquid open license](https://huggingface.co/LiquidAI/LFM2.5-VL-450M-GGUF) | ✅ tested default, fastest startup |
-| `nano` | SmolVLM2-256M | ~300MB | <1GB | Apache-2.0 | smallest useful VLM |
-| `fast` | SmolVLM2-500M | ~600MB | ~1GB | Apache-2.0 | general vision + video |
-| `ocr` | PaddleOCR-VL 0.9B | ~1GB | ~2GB | Apache-2.0 | #1 sub-1B OCR model |
-| `strong` | Qwen3-VL-2B | ~2GB | ~4GB | Apache-2.0 | real visual understanding |
+| `nano` | SmolVLM2-256M | ~0.3GB | ~1GB | Apache-2.0 | smallest useful VLM |
+| `lfm-450m` *(default)* | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | [Liquid](https://huggingface.co/LiquidAI/LFM2.5-VL-450M-GGUF) | ✅ tested, fastest startup |
+| `fast` | Qwen3.5-0.8B | ~0.7GB | ~1.8GB | Apache-2.0 | natively multimodal (image + video) |
+| `ocr` | GLM-OCR | ~1.4GB | ~3.5GB | MIT | dense text / document champion (3M+ downloads/mo) |
+| `strong` | Qwen3.5-4B | ~3GB | ~6GB | Apache-2.0 | best small vision model right now |
+| `xstrong` | Qwen3-VL-8B | ~5.5GB | ~10GB | Apache-2.0 | serious understanding (GPU advised) |
+
+Hidden extras (still one command): `smol500` (SmolVLM2-500M), `paddle` (PaddleOCR-VL-1.6), `qwen3-2b` (Qwen3-VL-2B).
+
+**Any other GGUF works too** — point the env at it and skip presets entirely:
+
+```bash
+EYES_MODEL_DIR=~/models/my-vlm  VLM_MODEL_FILE=model-Q4.gguf  VLM_MMPROJ_FILE=mmproj.gguf
+```
+
+Good candidates not shipped as presets: LFM2.5-VL-1.6B/3B, InternVL3.5-2B/4B, MiniCPM-V-4.6, DeepSeek-OCR, dots.ocr, gemma-3n-E2B, moondream2 — anything llama.cpp supports with an mmproj file.
 
 Switch anytime: set `EYES_PRESET` and run `./scripts/download_models.sh` again. Not sure which? `python3 scripts/choose_model.py` shows your RAM/GPU and marks a recommendation.
 
