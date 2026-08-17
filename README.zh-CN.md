@@ -1,6 +1,8 @@
 <div align="center">
 
-# 👀 eyes-mcp
+<img src="docs/banner.svg" width="760" alt="eyes-mcp">
+
+# eyes-mcp
 
 **给纯文本 LLM 装上眼睛 —— 本地视觉 + OCR，一个命令，零 API key**
 
@@ -44,7 +46,7 @@ cd eyes-mcp && ./scripts/install.sh
 就这一条。安装器会：
 
 1. 问你**要哪档模型**——按你的内存和 GPU 自动给推荐（设置 `EYES_PRESET` 或 `--yes` 可跳过）
-2. 装依赖 + 下载模型（~0.4–2GB，支持断点续传）
+2. 装依赖 + 下载模型（约 0.3 至 3.5GB，支持断点续传）
 3. **检测你的 agent 是不是纯文本模型**（读取 Claude Code / Codex / Cursor 的配置，对模型做模态数据库比对）
 4. **只在需要的地方注册** eyes-mcp——多模态模型的 agent 自动跳过
 

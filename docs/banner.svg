@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-label="eyes-mcp: give any text-only LLM eyes">
+  <rect width="1200" height="280" rx="16" fill="#0d1117"/>
+  <!-- subtle grid, terminal feel -->
+  <g stroke="#161b22" stroke-width="1">
+    <path d="M0 70 H1200 M0 140 H1200 M0 210 H1200"/>
+    <path d="M300 0 V280 M600 0 V280 M900 0 V280"/>
+  </g>
+  <!-- eye glyph -->
+  <g transform="translate(120,84) scale(1.4)">
+    <path d="M0 40 Q60 -14 120 40 Q60 94 0 40 Z" fill="none" stroke="#e6edf3" stroke-width="7" stroke-linejoin="round"/>
+    <circle cx="60" cy="40" r="22" fill="#3fb950"/>
+    <circle cx="60" cy="40" r="9" fill="#0d1117"/>
+    <circle cx="52" cy="32" r="4" fill="#e6edf3" opacity="0.9"/>
+  </g>
+  <!-- wordmark -->
+  <text x="360" y="140" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#e6edf3">eyes-mcp</text>
+  <text x="364" y="190" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#8b949e">Give any text-only LLM eyes.</text>
+  <!-- input chips: text model + blind image -->
+  <g font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="17">
+    <rect x="360" y="214" rx="6" width="150" height="30" fill="#21262d"/>
+    <text x="376" y="234" fill="#8b949e">deepseek ▸ 🖼?</text>
+    <rect x="522" y="214" rx="6" width="108" height="30" fill="#21262d"/>
+    <text x="538" y="234" fill="#3fb950">glm ▸ 🖼?</text>
+    <rect x="642" y="214" rx="6" width="112" height="30" fill="#1a2f22"/>
+    <text x="658" y="234" fill="#3fb950">+ eyes ✓</text>
+  </g>
+</svg>

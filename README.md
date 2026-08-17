@@ -1,6 +1,8 @@
 <div align="center">
 
-# 👀 eyes-mcp
+<img src="docs/banner.svg" width="760" alt="eyes-mcp">
+
+# eyes-mcp
 
 **Give any text-only LLM eyes. Local vision for your coding agent.**
 
@@ -29,7 +31,7 @@ I'm sorry — I cannot see images. Please describe the error in text.
 
 ## ✅ With eyes
 
-The agent calls a **local** VLM + OCR instead — and reads the screenshot itself:
+The agent calls a **local** VLM + OCR instead, and reads the screenshot itself:
 
 ```
 > Here's the error in my UI, fix it  [screenshot.png]
@@ -47,10 +49,10 @@ cd eyes-mcp && ./scripts/install.sh
 
 That's it. The installer:
 
-1. asks **which model** you want — with a recommendation computed from your RAM and GPU (no preset needed; skip the question with `EYES_PRESET` or `--yes`),
-2. installs deps + downloads the model (~400MB–2GB, resumable),
-3. **detects which of your agents run text-only models** (reads your Claude Code / Codex / Cursor configs, checks the model against a modality database),
-4. registers eyes-mcp **only where it's needed** — multimodal agents are skipped automatically.
+1. asks which model you want, with a recommendation computed from your RAM and GPU (skip the question with `EYES_PRESET` or `--yes`),
+2. installs deps and downloads the model (~0.3 to 3.5GB, resumable),
+3. detects which of your agents run text-only models, by reading your Claude Code / Codex / Cursor configs and checking each model against a modality database,
+4. registers eyes-mcp only where it's needed. Multimodal agents are skipped automatically.
 
 ```bash
 # options:
@@ -68,7 +70,7 @@ Requires: Python ≥3.11, [`llama.cpp`](https://github.com/ggml-org/llama.cpp) (
 
 Skipped auto-install, or an agent the installer doesn't know? Add it by hand.
 
-**Claude Code** — `~/.claude.json` → `mcpServers`:
+**Claude Code** (`~/.claude.json` → `mcpServers`):
 
 ```json
 "eyes-mcp": {
@@ -78,7 +80,7 @@ Skipped auto-install, or an agent the installer doesn't know? Add it by hand.
 }
 ```
 
-**Codex** — `~/.codex/config.toml`:
+**Codex** (`~/.codex/config.toml`):
 
 ```toml
 [mcp_servers.eyes-mcp]
@@ -87,7 +89,7 @@ args = ["--directory", "/ABS/PATH/eyes-mcp", "run", "eyes-mcp"]
 env = { EYES_PRESET = "lfm-450m" }
 ```
 
-**Cursor** — `.cursor/mcp.json`: same shape as Claude Code.
+**Cursor** (`.cursor/mcp.json`): same shape as Claude Code.
 
 Restart the agent, then ask: *"what's in this screenshot?"*
 
@@ -96,14 +98,14 @@ Restart the agent, then ask: *"what's in this screenshot?"*
 | Tool | Engine | Use for |
 |---|---|---|
 | `analyze_image(path, question?)` | VLM via llama.cpp | Descriptions, UI understanding, visual Q&A |
-| `ocr_image(path)` | RapidOCR (onnx) | Dense text: terminals, documents, tables — fast and precise |
+| `ocr_image(path)` | RapidOCR (onnx) | Dense text: terminals, documents, tables; fast and precise |
 
 ## Model presets
 
 | Preset | Model | Download | RAM | License | Notes |
 |---|---|---|---|---|---|
 | `nano` | SmolVLM2-256M | ~0.3GB | ~1GB | Apache-2.0 | smallest useful VLM |
-| `lfm-450m` *(default)* | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | [Liquid](https://huggingface.co/LiquidAI/LFM2.5-VL-450M-GGUF) | ✅ tested, fastest startup |
+| `lfm-450m` *(default)* | LFM2.5-VL-450M | ~0.4GB | ~1.2GB | [Liquid](https://huggingface.co/LiquidAI/LFM2.5-VL-450M-GGUF) | tested; fastest startup |
 | `fast` | Qwen3.5-0.8B | ~0.7GB | ~1.8GB | Apache-2.0 | natively multimodal (image + video) |
 | `ocr` | GLM-OCR | ~1.4GB | ~3.5GB | MIT | dense text / document champion (3M+ downloads/mo) |
 | `strong` | Qwen3.5-2B | ~2GB | ~3.5GB | Apache-2.0 | best quality/size balance |
@@ -111,13 +113,13 @@ Restart the agent, then ask: *"what's in this screenshot?"*
 
 Hidden extras (still one command): `smol500` (SmolVLM2-500M), `paddle` (PaddleOCR-VL-1.6), `qwen3-2b` (Qwen3-VL-2B).
 
-**Any other GGUF works too** — point the env at it and skip presets entirely:
+**Any other GGUF works too**. Point the env at it and skip presets entirely:
 
 ```bash
 EYES_MODEL_DIR=~/models/my-vlm  VLM_MODEL_FILE=model-Q4.gguf  VLM_MMPROJ_FILE=mmproj.gguf
 ```
 
-Good candidates not shipped as presets: LFM2.5-VL-1.6B/3B, InternVL3.5-2B/4B, MiniCPM-V-4.6, DeepSeek-OCR, dots.ocr, gemma-3n-E2B, moondream2 — anything llama.cpp supports with an mmproj file.
+Good candidates not shipped as presets: LFM2.5-VL-1.6B/3B, InternVL3.5-2B/4B, MiniCPM-V-4.6, DeepSeek-OCR, dots.ocr, gemma-3n-E2B, moondream2. Anything llama.cpp supports with an mmproj file works.
 
 Switch anytime: set `EYES_PRESET` and run `./scripts/download_models.sh` again. Not sure which? `python3 scripts/choose_model.py` shows your RAM/GPU and marks a recommendation.
 
@@ -132,13 +134,13 @@ eyes-mcp  (stateless, mcp SDK 2.x)
    └─ ocr_image     → RapidOCR (onnx, ~20MB)             "extract text"
 ```
 
-- **Lifecycle follows your agent**: the VLM server spawns when the MCP starts and is cleaned up when your agent exits. No orphan processes, no daemon to babysit.
+- **Lifecycle follows your agent**: the VLM server spawns when the MCP starts and shuts down when your agent exits, so you never end up with orphan processes or a daemon to babysit.
 - **Floating port**: the VLM never binds a fixed port (goodbye, "8080 already in use"), so it coexists with your other local services.
-- **Reuses an external VLM** if you already run one at `VLM_BASE_URL`.
+- **External VLM reuse**: if you already run one at `VLM_BASE_URL`, eyes-mcp uses it instead of spawning its own.
 
 ## Why
 
-The cheapest and best coding models right now — DeepSeek-V4-Flash, GLM-5.x, Qwen-Coder — are **text-only**. Every harness assumes you can paste a screenshot; every cheap model silently fails at it. eyes-mcp is the missing sidecar: a tiny local VLM + OCR, wrapped in the lifecycle your agent already understands.
+The cheapest and best coding models right now (DeepSeek-V4-Flash, GLM-5.x, Qwen-Coder) are text-only. Every harness assumes you can paste a screenshot, and every one of these models silently fails at it. eyes-mcp is the missing sidecar: a small local VLM plus OCR, wrapped in the lifecycle your agent already understands.
 
 ## Roadmap
 
@@ -150,9 +152,9 @@ The cheapest and best coding models right now — DeepSeek-V4-Flash, GLM-5.x, Qw
 
 ## FAQ
 
-**Does my agent model matter?** Only in that it must be *text-only* for this to be useful. Multimodal models (GPT, Claude, GLM-*V*) already see images — don't bother.
+**Does my agent model matter?** Only in that it must be *text-only* for this to be useful. Multimodal models (GPT, Claude, GLM-*V*) already see images, so don't bother.
 
-**GPU needed?** No. Runs fine on CPU; Apple Metal is used automatically when available.
+**GPU needed?** No. It runs fine on CPU, and llama.cpp picks up Apple Metal or CUDA automatically when present.
 
 **Where are models stored?** `~/.eyes-mcp/models/<preset>/`. Delete them to reset.
 
