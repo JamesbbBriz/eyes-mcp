@@ -50,7 +50,7 @@ cd eyes-mcp && ./scripts/install.sh
 
 ```bash
 # 可选项：
-EYES_PRESET=fast ./scripts/install.sh            # Apache-2.0 SmolVLM2-500M
+EYES_PRESET=fast ./scripts/install.sh            # Qwen3.5-0.8B 原生多模态
 HF_ENDPOINT=https://hf-mirror.com ./install.sh  # 国内镜像
 ./install.sh --yes                              # 全部接受推荐，无交互
 ./install.sh --dry-run                          # 预览，不改动

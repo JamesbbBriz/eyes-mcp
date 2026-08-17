@@ -54,7 +54,7 @@ That's it. The installer:
 
 ```bash
 # options:
-EYES_PRESET=fast ./scripts/install.sh            # Apache-2.0 SmolVLM2-500M
+EYES_PRESET=fast ./scripts/install.sh            # Qwen3.5-0.8B, natively multimodal
 HF_ENDPOINT=https://hf-mirror.com ./install.sh  # mainland-CN mirror
 ./install.sh --yes                              # accept all recommendations, no prompts
 ./install.sh --dry-run                          # preview without changing anything
