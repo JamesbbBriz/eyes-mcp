@@ -39,14 +39,27 @@ Agent 调用**本地** VLM + OCR，自己把截图读了：
 ```bash
 git clone https://github.com/JamesbbBriz/eyes-mcp
 cd eyes-mcp && ./scripts/install.sh
-
-# 国内镜像：HF_ENDPOINT=https://hf-mirror.com ./scripts/install.sh
-# 换模型档：EYES_PRESET=fast ./scripts/install.sh
 ```
+
+就这一条。安装器会：
+
+1. 装依赖 + 下载模型（~400MB，支持断点续传）
+2. **检测你的 agent 是不是纯文本模型**（读取 Claude Code / Codex / Cursor 的配置，对模型做模态数据库比对）
+3. **只在需要的地方注册** eyes-mcp——多模态模型的 agent 自动跳过
+
+```bash
+# 可选项：
+EYES_PRESET=fast ./scripts/install.sh            # Apache-2.0 SmolVLM2-500M
+HF_ENDPOINT=https://hf-mirror.com ./install.sh  # 国内镜像
+./install.sh --yes                              # 全部接受推荐，无交互
+./install.sh --dry-run                          # 预览，不改动
+```
+
+只想查模态？`python3 scripts/detect_modality.py`
 
 依赖：Python ≥3.11、[llama.cpp](https://github.com/ggml-org/llama.cpp)（`brew install llama.cpp`）、约 1GB 内存。
 
-## 注册到 agent
+## 手动注册
 
 **Claude Code**（`~/.claude.json` → `mcpServers`）：
 

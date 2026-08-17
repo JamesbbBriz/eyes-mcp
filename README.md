@@ -42,17 +42,30 @@ I see a React hydration error in `CartDrawer.tsx:142`. The OCR shows:
 
 ```bash
 git clone https://github.com/JamesbbBriz/eyes-mcp
-cd eyes-mcp && ./scripts/install.sh          # deps + model (auto-download, ~400MB)
-
-# pick a different model tier:
-EYES_PRESET=fast ./scripts/install.sh        # Apache-2.0 SmolVLM2-500M
-EYES_PRESET=ocr  ./scripts/install.sh        # PaddleOCR-VL, dense-text champion
-# mainland China: HF_ENDPOINT=https://hf-mirror.com ./scripts/install.sh
+cd eyes-mcp && ./scripts/install.sh
 ```
+
+That's it. The installer:
+
+1. installs deps + downloads the model (~400MB, resumable),
+2. **detects which of your agents run text-only models** (reads your Claude Code / Codex / Cursor configs, checks the model against a modality database),
+3. registers eyes-mcp **only where it's needed** — multimodal agents are skipped automatically.
+
+```bash
+# options:
+EYES_PRESET=fast ./scripts/install.sh            # Apache-2.0 SmolVLM2-500M
+HF_ENDPOINT=https://hf-mirror.com ./install.sh  # mainland-CN mirror
+./install.sh --yes                              # accept all recommendations, no prompts
+./install.sh --dry-run                          # preview without changing anything
+```
+
+Just want the modality check? `python3 scripts/detect_modality.py`
 
 Requires: Python ≥3.11, [`llama.cpp`](https://github.com/ggml-org/llama.cpp) (`brew install llama.cpp`), ~1GB RAM.
 
-## Register with your agent
+## Manual registration
+
+Skipped auto-install, or an agent the installer doesn't know? Add it by hand.
 
 **Claude Code** — `~/.claude.json` → `mcpServers`:
 
