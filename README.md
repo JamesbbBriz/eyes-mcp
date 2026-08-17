@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/cover.webp" width="880" alt="eyes-mcp">
+<img src="https://cdn.jsdelivr.net/gh/JamesbbBriz/eyes-mcp@main/docs/cover.webp" width="880" alt="eyes-mcp">
 
 # eyes-mcp
 
