@@ -9,7 +9,6 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-PRESET="${EYES_PRESET:-lfm-450m}"
 DRY_RUN=0; ASSUME_YES=0; FORCE=0
 for arg in "$@"; do
   case "$arg" in
@@ -19,6 +18,16 @@ for arg in "$@"; do
     *) echo "unknown flag: $arg (supported: --dry-run --yes --force)" >&2; exit 2 ;;
   esac
 done
+
+# ---- 0. Model preset: interactive chooser unless EYES_PRESET is set ---------
+PRESET="${EYES_PRESET:-}"
+if [ -z "$PRESET" ]; then
+  if [ -t 0 ] && [ "$ASSUME_YES" != "1" ]; then
+    PRESET=$(python3 scripts/choose_model.py | tail -1 | sed 's/^CHOSEN://')
+  else
+    PRESET=$(python3 scripts/choose_model.py --auto | tail -1 | sed 's/^CHOSEN://')
+  fi
+fi
 
 run() { # run or echo in dry-run mode
   if [ "$DRY_RUN" = "1" ]; then echo "  [dry-run] $*"; else "$@"; fi

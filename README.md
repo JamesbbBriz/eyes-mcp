@@ -47,9 +47,10 @@ cd eyes-mcp && ./scripts/install.sh
 
 That's it. The installer:
 
-1. installs deps + downloads the model (~400MB, resumable),
-2. **detects which of your agents run text-only models** (reads your Claude Code / Codex / Cursor configs, checks the model against a modality database),
-3. registers eyes-mcp **only where it's needed** — multimodal agents are skipped automatically.
+1. asks **which model** you want — with a recommendation computed from your RAM and GPU (no preset needed; skip the question with `EYES_PRESET` or `--yes`),
+2. installs deps + downloads the model (~400MB–2GB, resumable),
+3. **detects which of your agents run text-only models** (reads your Claude Code / Codex / Cursor configs, checks the model against a modality database),
+4. registers eyes-mcp **only where it's needed** — multimodal agents are skipped automatically.
 
 ```bash
 # options:
@@ -107,7 +108,7 @@ Restart the agent, then ask: *"what's in this screenshot?"*
 | `ocr` | PaddleOCR-VL 0.9B | ~1GB | ~2GB | Apache-2.0 | #1 sub-1B OCR model |
 | `strong` | Qwen3-VL-2B | ~2GB | ~4GB | Apache-2.0 | real visual understanding |
 
-Switch anytime: set `EYES_PRESET` and run `./scripts/download_models.sh` again.
+Switch anytime: set `EYES_PRESET` and run `./scripts/download_models.sh` again. Not sure which? `python3 scripts/choose_model.py` shows your RAM/GPU and marks a recommendation.
 
 ## How it works
 

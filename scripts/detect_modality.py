@@ -56,6 +56,12 @@ def openrouter_lookup(model: str, index: dict | None) -> str | None:
     m = normalize(model)
     entry = index.get(m)
     if entry is None:
+        # fuzzy: match "provider/model" ids with or without the provider prefix
+        for suffix in (m.split("/")[-1],):
+            hits = [v for k, v in index.items() if k.split("/")[-1] == suffix]
+            if len(hits) == 1:
+                entry = hits[0]
+    if entry is None:
         return None
     return "multimodal" if "image" in entry else "text-only"
 
@@ -86,21 +92,34 @@ def load_openrouter_index() -> dict | None:
 
 
 def claude_model() -> str | None:
+    """Model id from Claude Code config.
+
+    Priority: settings env overrides (proxy setups like cc-switch set these) →
+    settings "model" alias (opus/sonnet/haiku → claude-*) → default sentinel.
+    Claude's default models are all multimodal, so the sentinel resolves to
+    multimodal rather than "unknown".
+    """
     p = HOME / ".claude" / "settings.json"
-    if not p.exists():
-        return None
-    try:
-        env = json.load(open(p)).get("env", {})
-        for key in (
-            "ANTHROPIC_MODEL",
-            "ANTHROPIC_DEFAULT_OPUS_MODEL",
-            "ANTHROPIC_DEFAULT_SONNET_MODEL",
-            "ANTHROPIC_DEFAULT_HAIKU_MODEL",
-        ):
-            if env.get(key):
-                return env[key]
-    except Exception:
-        pass
+    env, alias = {}, None
+    if p.exists():
+        try:
+            cfg = json.load(open(p))
+            env = cfg.get("env", {})
+            alias = cfg.get("model")
+        except Exception:
+            pass
+    for key in (
+        "ANTHROPIC_MODEL",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+    ):
+        if env.get(key):
+            return env[key]
+    if alias and isinstance(alias, str):
+        return f"claude-{alias}"  # opus/sonnet/haiku → claude-* → multimodal
+    if (HOME / ".claude.json").exists() or p.exists():
+        return "claude-default"  # whatever the current default is, it sees images
     return None
 
 
@@ -112,7 +131,7 @@ def codex_model() -> str | None:
         m = re.match(r'\s*model\s*=\s*"([^"]+)"', line)
         if m:
             return m.group(1)
-    return None
+    return "gpt-5-default"  # Codex default is a GPT-5.x — multimodal
 
 
 def detect_agents() -> list[dict]:

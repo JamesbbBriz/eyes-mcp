@@ -43,9 +43,10 @@ cd eyes-mcp && ./scripts/install.sh
 
 就这一条。安装器会：
 
-1. 装依赖 + 下载模型（~400MB，支持断点续传）
-2. **检测你的 agent 是不是纯文本模型**（读取 Claude Code / Codex / Cursor 的配置，对模型做模态数据库比对）
-3. **只在需要的地方注册** eyes-mcp——多模态模型的 agent 自动跳过
+1. 问你**要哪档模型**——按你的内存和 GPU 自动给推荐（设置 `EYES_PRESET` 或 `--yes` 可跳过）
+2. 装依赖 + 下载模型（~0.4–2GB，支持断点续传）
+3. **检测你的 agent 是不是纯文本模型**（读取 Claude Code / Codex / Cursor 的配置，对模型做模态数据库比对）
+4. **只在需要的地方注册** eyes-mcp——多模态模型的 agent 自动跳过
 
 ```bash
 # 可选项：
@@ -96,6 +97,8 @@ env = { EYES_PRESET = "lfm-450m" }
 | `fast` | SmolVLM2-500M | ~600MB | ~1GB | Apache-2.0 |
 | `ocr` | PaddleOCR-VL 0.9B | ~1GB | ~2GB | Apache-2.0 |
 | `strong` | Qwen3-VL-2B | ~2GB | ~4GB | Apache-2.0 |
+
+随时换档：设置 `EYES_PRESET` 再跑 `./scripts/download_models.sh`。不知道选哪个？`python3 scripts/choose_model.py` 会显示内存/GPU 并标出推荐。
 
 ## 原理
 
