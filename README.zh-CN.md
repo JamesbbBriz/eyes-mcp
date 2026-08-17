@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/banner.svg" width="760" alt="eyes-mcp">
+<img src="docs/cover.webp" width="880" alt="eyes-mcp">
 
 # eyes-mcp
 
